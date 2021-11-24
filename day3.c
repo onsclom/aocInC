@@ -3,18 +3,11 @@
 #include <string.h>
 #include <math.h> 
 
-#define GRID_SIZE 100000
+#define GRID_SIZE 50000
 
 void part1() {
     FILE *inputFile;
     inputFile = fopen("day3-input.txt", "r");
-
-    struct wirePart
-    {
-        int x;
-        int y;
-    };
-    struct wirePart firstWire[1000];
 
     char wire1String[10000];
     char wire2String[10000];    
@@ -22,7 +15,8 @@ void part1() {
     fgets(wire1String, 100000, inputFile);
     fgets(wire2String, 100000, inputFile);
 
-    int * grid[GRID_SIZE];
+    int ** grid;
+    grid = malloc(sizeof(int*)*GRID_SIZE);
     for (int i=0; i<GRID_SIZE; i++) {
         grid[i] = (int*) calloc(GRID_SIZE, sizeof(int));
     }
@@ -38,19 +32,10 @@ void part1() {
         int amount = atoi(cur+1);  
 
         for (int i=0; i<amount; i++) {
-            if (dirLetter=='R') {
-                curX+=1;
-            }
-            else if (dirLetter=='L') {
-                curX-=1;
-            }
-            else if (dirLetter=='U') {
-                curY-=1;
-            }
-            else if (dirLetter=='D') {
-                curY+=1;
-            }
-            
+            if (dirLetter=='R') curX+=1;
+            else if (dirLetter=='L') curX-=1;
+            else if (dirLetter=='U') curY-=1;
+            else if (dirLetter=='D') curY+=1;
             grid[curX][curY]=1;
         }
 
@@ -112,9 +97,10 @@ void part2() {
     fgets(wire1String, 100000, inputFile);
     fgets(wire2String, 100000, inputFile);
 
-    int * grid[GRID_SIZE];
+    int ** grid;
+    grid = malloc(sizeof(int*)*GRID_SIZE);
     for (int i=0; i<GRID_SIZE; i++) {
-        grid[i] = (int*) calloc(GRID_SIZE, sizeof(int));
+        grid[i] = malloc(sizeof(int*)*GRID_SIZE);
     }
 
     int originPoint = GRID_SIZE/2;
@@ -129,18 +115,10 @@ void part2() {
         int amount = atoi(cur+1);  
 
         for (int i=0; i<amount; i++) {
-            if (dirLetter=='R') {
-                curX+=1;
-            }
-            else if (dirLetter=='L') {
-                curX-=1;
-            }
-            else if (dirLetter=='U') {
-                curY-=1;
-            }
-            else if (dirLetter=='D') {
-                curY+=1;
-            }
+            if (dirLetter=='R') curX+=1;
+            else if (dirLetter=='L') curX-=1;
+            else if (dirLetter=='U') curY-=1;
+            else if (dirLetter=='D') curY+=1;
             dist+=1;
             grid[curX][curY]=dist;
         }
@@ -188,5 +166,6 @@ void part2() {
 }
 
 int main() {
-    part2();
+    part1();
+    //part2();
 }
